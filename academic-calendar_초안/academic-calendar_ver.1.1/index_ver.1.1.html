@@ -1,0 +1,340 @@
+<title>学期日历 · 学历翻译计划</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --paper:#EEF1EE;
+    --paper-raised:#F8FAF7;
+    --ink:#1C2430;
+    --ink-soft:#5B6572;
+    --ink-faint:#8A9089;
+    --line:#D8DAD3;
+    --accent:#B23A2E;
+    --accent-soft:#F3E1DD;
+    --accent-ink:#7A241B;
+    --gold:#A9782F;
+    --gold-soft:#F2E8D2;
+    --blue:#35607A;
+    --blue-soft:#DCE7EC;
+    --green:#4B7A5D;
+    --green-soft:#DFEBE1;
+    --focus:#35607A;
+    --shadow: 0 1px 2px rgba(28,36,48,0.06), 0 4px 14px rgba(28,36,48,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#14181B;
+      --paper-raised:#1B2023;
+      --ink:#E7EAE4;
+      --ink-soft:#A2A9A0;
+      --ink-faint:#6D746C;
+      --line:#2B302F;
+      --accent:#E2685A;
+      --accent-soft:#3A211D;
+      --accent-ink:#F4B3A9;
+      --gold:#D2A95B;
+      --gold-soft:#332912;
+      --blue:#8FBCD8;
+      --blue-soft:#1E2C33;
+      --green:#8FBB9E;
+      --green-soft:#1E2B22;
+      --focus:#8FBCD8;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.25);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14181B; --paper-raised:#1B2023; --ink:#E7EAE4; --ink-soft:#A2A9A0; --ink-faint:#6D746C;
+    --line:#2B302F; --accent:#E2685A; --accent-soft:#3A211D; --accent-ink:#F4B3A9;
+    --gold:#D2A95B; --gold-soft:#332912; --blue:#8FBCD8; --blue-soft:#1E2C33;
+    --green:#8FBB9E; --green-soft:#1E2B22; --focus:#8FBCD8;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.25);
+  }
+  :root[data-theme="light"]{
+    --paper:#EEF1EE; --paper-raised:#F8FAF7; --ink:#1C2430; --ink-soft:#5B6572; --ink-faint:#8A9089;
+    --line:#D8DAD3; --accent:#B23A2E; --accent-soft:#F3E1DD; --accent-ink:#7A241B;
+    --gold:#A9782F; --gold-soft:#F2E8D2; --blue:#35607A; --blue-soft:#DCE7EC;
+    --green:#4B7A5D; --green-soft:#DFEBE1; --focus:#35607A;
+    --shadow: 0 1px 2px rgba(28,36,48,0.06), 0 4px 14px rgba(28,36,48,0.05);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"PingFang SC","Noto Sans SC","Microsoft YaHei","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:56px 24px 96px;}
+
+  header.page{
+    display:flex; flex-direction:column; gap:10px;
+    padding-bottom:28px; margin-bottom:8px;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-size:12.5px; letter-spacing:0.08em; color:var(--ink-soft);
+    display:flex; gap:8px; align-items:center;
+  }
+  .eyebrow .dot{width:4px;height:4px;border-radius:50%;background:var(--ink-faint);}
+  h1{
+    font-family:"Noto Serif SC","Songti SC","STSong","Nanum Myeongjo",serif;
+    font-weight:600;
+    font-size:clamp(28px,4.4vw,36px);
+    line-height:1.25;
+    margin:0;
+    text-wrap:balance;
+  }
+  .sub{
+    color:var(--ink-soft);
+    font-size:14.5px;
+    max-width:56ch;
+  }
+  .disclaimer{
+    font-size:12.5px; color:var(--ink-faint); margin-top:2px;
+  }
+
+  .toolbar{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin:24px 0 40px;
+  }
+  button, .btn{
+    font:inherit; cursor:pointer;
+    border-radius:8px;
+    border:1px solid var(--line);
+    background:var(--paper-raised);
+    color:var(--ink);
+    padding:10px 16px;
+    font-size:14px;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    text-decoration:none;
+  }
+  button:hover, .btn:hover{border-color:var(--ink-faint);}
+  button:active, .btn:active{transform:translateY(1px);}
+  button:focus-visible, .btn:focus-visible, a:focus-visible{
+    outline:2px solid var(--focus); outline-offset:2px;
+  }
+  .btn-primary{
+    background:var(--accent); border-color:var(--accent); color:#FBEFEC;
+    font-weight:600;
+  }
+  .btn-primary:hover{background:var(--accent-ink); border-color:var(--accent-ink);}
+
+  .month-group{margin-top:36px;}
+  .month-label{
+    font-size:13px; color:var(--ink-soft); letter-spacing:0.06em;
+    margin:0 0 12px; padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+    font-variant-numeric:tabular-nums;
+  }
+
+  .event{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:16px;
+    padding:16px 4px;
+    border-bottom:1px solid var(--line);
+  }
+  .event:last-child{border-bottom:none;}
+  .date-block{
+    font-variant-numeric:tabular-nums;
+    text-align:right; padding-top:2px;
+  }
+  .date-block .d{font-size:22px; font-weight:600; line-height:1;}
+  .date-block .d-range{font-size:14px; color:var(--ink-soft); margin-top:2px;}
+
+  .event-main{min-width:0;}
+  .row-top{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;}
+  .zh{font-size:16.5px; font-weight:600;}
+  .ko{font-size:13px; color:var(--ink-soft);}
+  .tag{
+    display:inline-block; font-size:11.5px; letter-spacing:0.03em;
+    padding:2px 8px; border-radius:100px; margin-left:2px;
+  }
+  .tag-选课{background:var(--gold-soft); color:var(--gold);}
+  .tag-缴费{background:var(--accent-soft); color:var(--accent-ink);}
+  .tag-考试{background:var(--blue-soft); color:var(--blue);}
+  .tag-假期{background:var(--green-soft); color:var(--green);}
+  .tag-截止{background:var(--accent-soft); color:var(--accent-ink);}
+  .tag-学期{background:var(--blue-soft); color:var(--blue);}
+
+  .note{font-size:13.5px; color:var(--ink-soft); margin-top:6px; max-width:56ch;}
+  .event-actions{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;}
+  .event-actions a, .event-actions button{
+    font-size:12.5px; padding:6px 12px; border-radius:100px;
+  }
+
+  footer{
+    margin-top:56px; padding-top:20px; border-top:1px solid var(--line);
+    font-size:12.5px; color:var(--ink-faint);
+  }
+
+  @media (max-width:520px){
+    .event{grid-template-columns:52px 1fr;}
+    .date-block .d{font-size:19px;}
+  }
+</style>
+
+<div class="wrap">
+  <header class="page">
+    <div class="eyebrow"><span>2026학년도 2학기</span><span class="dot"></span><span>2026年秋季学期</span></div>
+    <h1>学期日历</h1>
+    <p class="sub">整理自学校官方학사일정(学历),按时间顺序列出选课、缴费、考试等重要日期。点击"添加到日历",到期前会自动提醒。</p>
+    <p class="disclaimer">⚠ 以下日期为示例数据,请替换为学校当学期公布的正式学历。如与学校公告不一致,以学校公告为准。</p>
+  </header>
+
+  <div class="toolbar">
+    <button class="btn-primary" id="downloadAll">⬇ 下载完整学期日历(.ics)</button>
+    <span class="btn" style="border-style:dashed; color:var(--ink-soft); cursor:default;">提醒会在到期前 3 天自动提示</span>
+  </div>
+
+  <div id="calendar"></div>
+
+  <footer>
+    本页面为独立静态页面,数据全部保存在浏览器本地生成,不会上传或收集任何个人信息。日历文件(.ics)可导入 Apple 日历、Outlook,或通过下方按钮一键添加到 Google 日历。
+  </footer>
+</div>
+
+<script>
+  // 학회 담당자용: 아래 EVENTS 배열의 날짜/텍스트만 학교 공식 학사일정으로 교체하면 됩니다.
+  const EVENTS = [
+    { id:"reg",     group:"2026年8月", zh:"选课(网上选课)",           ko:"수강신청",       start:"2026-08-17", end:"2026-08-21", tag:"选课", tagClass:"选课",
+      note:"登录学校「综合信息系统」进行选课,系统开放期间可修改课程,注意按年级分批开放的时间段。" },
+    { id:"tuition", group:"2026年8月", zh:"学费缴纳",                 ko:"등록금 납부",     start:"2026-08-24", end:"2026-08-28", tag:"缴费", tagClass:"缴费",
+      note:"通过学校指定银行或网上银行缴纳学费,逾期未缴可能导致选课自动作废,请务必按时完成。" },
+    { id:"start",   group:"2026年9月", zh:"开学",                     ko:"개강",           start:"2026-09-01", end:"2026-09-01", tag:"学期", tagClass:"学期",
+      note:"2026学年度第2学期正式开始上课。" },
+    { id:"adddrop", group:"2026年9月", zh:"选课确认与调整(改退选)",   ko:"수강정정",       start:"2026-09-01", end:"2026-09-07", tag:"选课", tagClass:"选课",
+      note:"可在此期间调整已选课程(退选、替换),超过期限将无法更改本学期课表。" },
+    { id:"chuseok", group:"2026年9月", zh:"中秋节假期",               ko:"추석 연휴",       start:"2026-09-24", end:"2026-09-27", tag:"假期", tagClass:"假期",
+      note:"学校放假,行政办公室暂停对外服务,请提前处理需要到校办理的事务。" },
+    { id:"midterm", group:"2026年10月", zh:"期中考试",                ko:"중간고사",       start:"2026-10-19", end:"2026-10-23", tag:"考试", tagClass:"考试",
+      note:"具体考试时间以各科教授公布为准,请留意教学网站(LMS)通知。" },
+    { id:"withdraw",group:"2026年11月", zh:"退课截止日",              ko:"수강철회",       start:"2026-11-06", end:"2026-11-06", tag:"截止", tagClass:"截止",
+      note:"最后可申请「退课」(成绩单标注 W)的日期,过期后无法再退课。" },
+    { id:"final",   group:"2026年12月", zh:"期末考试",                ko:"기말고사",       start:"2026-12-14", end:"2026-12-18", tag:"考试", tagClass:"考试",
+      note:"考试周,部分课程可能安排在教室以外的地点,请提前确认。" },
+    { id:"vacation",group:"2026年12月", zh:"寒假开始",                ko:"겨울방학 시작",   start:"2026-12-19", end:"2026-12-19", tag:"假期", tagClass:"假期",
+      note:"本学期课程结束,进入寒假。" },
+    { id:"grades",  group:"2026年12月", zh:"成绩确认与异议申请",      ko:"성적 확인 및 정정", start:"2026-12-28", end:"2026-12-30", tag:"截止", tagClass:"截止",
+      note:"可在综合信息系统查询成绩,如有疑问需在此期间内向任课教授提出异议申请。" },
+  ];
+
+  function pad(n){ return String(n).padStart(2,"0"); }
+  function toICSDate(iso){ return iso.replaceAll("-",""); }
+  function addDaysISO(iso, days){
+    const d = new Date(iso + "T00:00:00");
+    d.setDate(d.getDate() + days);
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  }
+  function escapeICS(text){
+    return String(text).replace(/\\/g,"\\\\").replace(/,/g,"\\,").replace(/;/g,"\\;").replace(/\n/g,"\\n");
+  }
+  function nowStamp(){
+    const d = new Date();
+    return `${d.getUTCFullYear()}${pad(d.getUTCMonth()+1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}${pad(d.getUTCSeconds())}Z`;
+  }
+  function buildVEVENT(ev){
+    const dtstart = toICSDate(ev.start);
+    const dtend = toICSDate(addDaysISO(ev.end, 1));
+    const summary = escapeICS(`${ev.zh}(${ev.ko})`);
+    const desc = escapeICS(ev.note);
+    return [
+      "BEGIN:VEVENT",
+      `UID:${ev.id}-2026s2@academic-calendar.local`,
+      `DTSTAMP:${nowStamp()}`,
+      `DTSTART;VALUE=DATE:${dtstart}`,
+      `DTEND;VALUE=DATE:${dtend}`,
+      `SUMMARY:${summary}`,
+      `DESCRIPTION:${desc}`,
+      "BEGIN:VALARM",
+      "ACTION:DISPLAY",
+      `DESCRIPTION:${summary}`,
+      "TRIGGER:-P3D",
+      "END:VALARM",
+      "END:VEVENT",
+    ].join("\r\n");
+  }
+  function buildVCALENDAR(vevents){
+    return [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//academic-calendar//KR-ZH//EN",
+      "CALSCALE:GREGORIAN",
+      ...vevents,
+      "END:VCALENDAR",
+    ].join("\r\n");
+  }
+  function download(filename, content){
+    const blob = new Blob([content], { type: "text/calendar;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+  function googleCalendarUrl(ev){
+    const dates = `${toICSDate(ev.start)}/${toICSDate(addDaysISO(ev.end,1))}`;
+    const params = new URLSearchParams({
+      action:"TEMPLATE",
+      text:`${ev.zh}(${ev.ko})`,
+      dates,
+      details:ev.note,
+    });
+    return `https://calendar.google.com/calendar/render?${params.toString()}`;
+  }
+
+  const cal = document.getElementById("calendar");
+  let currentGroup = null;
+  EVENTS.forEach(ev => {
+    if (ev.group !== currentGroup) {
+      currentGroup = ev.group;
+      const h = document.createElement("p");
+      h.className = "month-label";
+      h.textContent = currentGroup;
+      cal.appendChild(h);
+    }
+    const row = document.createElement("div");
+    row.className = "event";
+
+    const dateBlock = document.createElement("div");
+    dateBlock.className = "date-block";
+    const [, m, d] = ev.start.split("-");
+    dateBlock.innerHTML = `<div class="d">${parseInt(d,10)}</div><div class="d-range">${ev.start === ev.end ? "" : "~ " + parseInt(ev.end.split("-")[2],10)}</div>`;
+
+    const main = document.createElement("div");
+    main.className = "event-main";
+    main.innerHTML = `
+      <div class="row-top">
+        <span class="zh">${ev.zh}</span>
+        <span class="ko">${ev.ko}</span>
+        <span class="tag tag-${ev.tagClass}">${ev.tag}</span>
+      </div>
+      <div class="note">${ev.note}</div>
+      <div class="event-actions"></div>
+    `;
+    const actions = main.querySelector(".event-actions");
+
+    const gbtn = document.createElement("a");
+    gbtn.className = "btn"; gbtn.target = "_blank"; gbtn.rel = "noopener";
+    gbtn.href = googleCalendarUrl(ev);
+    gbtn.textContent = "+ Google 日历";
+    actions.appendChild(gbtn);
+
+    const ibtn = document.createElement("button");
+    ibtn.textContent = "⬇ .ics (Apple / Outlook)";
+    ibtn.addEventListener("click", () => {
+      download(`${ev.id}.ics`, buildVCALENDAR([buildVEVENT(ev)]));
+    });
+    actions.appendChild(ibtn);
+
+    row.appendChild(dateBlock);
+    row.appendChild(main);
+    cal.appendChild(row);
+  });
+
+  document.getElementById("downloadAll").addEventListener("click", () => {
+    download("2026-2학기-학사일정.ics", buildVCALENDAR(EVENTS.map(buildVEVENT)));
+  });
+</script>
