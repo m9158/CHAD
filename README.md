@@ -32,8 +32,8 @@
 |---|---|---|
 | 학사일정 캘린더 (`index`) | ✅ 배포됨 | 정적 데이터, `.ics` 다운로드 + 구글 캘린더 연동 |
 | 강의평 게시판 (`reviews`) | ✅ 배포됨 | Supabase 연동, **로그인 없이 누구나 작성 가능** |
-| 자유게시판 (`board`) | 🟡 코드 완성, 미배포 | 로그인 · 익명 · 댓글 · 공감 · 신고 |
-| 회원 시스템 | 🟡 코드 완성, 미배포 | Supabase Auth (이메일 + 닉네임) |
+| 자유게시판 (`board`) | 🟡 PR 제출됨, 미배포 | 로그인 · 익명 · 댓글 · 공감 · 신고 |
+| 회원 시스템 | 🟡 PR 제출됨, 미배포 | Supabase Auth (이메일 + 닉네임) |
 | 도배/스팸 방지 | ❌ 없음 | **공개 전 필수** |
 | 이용약관 · 개인정보처리방침 | ❌ 없음 | **회원 가입 받기 전 필수** |
 | 관리자 화면 | ❌ 없음 | 당분간 Supabase Table Editor로 대체 |
@@ -65,21 +65,45 @@
 
 ## 3. 파일 구조
 
+### 현재 저장소 (2026-08 기준)
+
+```
+/
+├── .gitattributes                    # 줄바꿈 LF 통일
+├── board_ver.1.1.html                # 자유게시판 (신규, 미배포)
+├── caucalendarcn.html                # 강의평 페이지 사본
+├── academic-calendar_초안/
+│   └── academic-calendar_ver.1.1/
+│       └── index_ver.1.1.html        # 학사일정 초안
+├── db/
+│   └── schema_board.sql              # 게시판 테이블 · RLS · 트리거 · 뷰
+├── docs/
+│   ├── board_preview.html            # DB 없이 UI만 확인 (배포 안 함)
+│   ├── DEPLOY.md                     # 배포 절차
+│   ├── GITHUB_GUIDE.md               # GitHub 사용법 (처음 쓰는 사람용)
+│   └── SETUP_board.md                # 게시판 설정 가이드
+└── README.md
+```
+
+### 목표 구조
+
 ```
 /
 ├── index.html                  # 학사일정 캘린더
 ├── reviews.html                # 강의평
-├── board.html                  # 자유게시판  (신규)
+├── board.html                  # 자유게시판
 ├── styles.css                  # 공통 디자인 토큰 + 컴포넌트
 ├── db/
-│   └── schema_board.sql        # 게시판 테이블 · RLS · 트리거 · 뷰
 ├── docs/
-│   └── board_preview.html      # DB 없이 UI만 확인하는 프리뷰 (배포 안 함)
 └── README.md
 ```
 
-> 현재 저장소에는 `index_ver.1.1.html` 처럼 버전이 붙은 이름으로 들어있다.
-> 첫 커밋에서 위 구조로 정리하는 것을 권장한다.
+**아직 저장소에 없는 것** — 실제 배포 중인 `index_ver.1.1.html`,
+`reviews_ver.1.1.html`, `styles.css` 가 저장소에 올라와 있지 않다.
+저장소만 받아서는 사이트를 그대로 재현할 수 없는 상태이므로 우선 해결해야 한다.
+
+> 파일명에서 버전(`_ver.1.1`)을 떼고 위 목표 구조로 정리하는 것을 권장한다.
+> 이유는 [7. 개발 규칙](#7-개발-규칙) 참고.
 
 ---
 
@@ -99,6 +123,9 @@ python3 -m http.server 5500
 ```
 
 VS Code를 쓴다면 **Live Server** 확장으로도 된다.
+
+GitHub를 처음 쓴다면 [`docs/GITHUB_GUIDE.md`](docs/GITHUB_GUIDE.md) 를 먼저 읽는다.
+클론부터 PR까지 클릭 순서로 적혀 있다.
 
 로컬 주소로 로그인까지 테스트하려면 Supabase 대시보드
 **Authentication → URL Configuration → Redirect URLs** 에 `http://localhost:5500/**` 를 추가한다.
@@ -197,6 +224,8 @@ docs: README에 DB 설정 절차 추가
 
 ### 코드 컨벤션
 
+- 줄바꿈은 **LF**로 통일한다. `.gitattributes` 가 자동으로 처리하므로 신경 쓰지 않아도 된다.
+  (이게 없으면 Windows에서 파일을 열기만 해도 전체가 "수정됨"으로 잡혀 diff를 볼 수 없게 된다)
 - 사용자에게 보이는 문구는 **중국어 우선, 한국어 병기**. 한국어는 `.ko-sub` 클래스로 작게
 - 색·간격은 `styles.css` 의 CSS 변수만 사용한다 (`var(--accent)`). 하드코딩된 hex 금지
 - DB에서 온 값은 반드시 `esc()` 를 거쳐 DOM에 넣는다 (XSS 방지)
