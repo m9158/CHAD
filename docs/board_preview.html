@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>[预览] 广场 · CAU 中国留学生</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="中央大学中国留学生自由交流版块。选课、租房、打工、生活。" />
+<style>
+:root{
+  --paper:#FFFFFF;
+  --paper-raised:#F3F6FB;
+  --ink:#101828;
+  --ink-soft:#475467;
+  --ink-faint:#98A2B3;
+  --line:#E4E7EC;
+  --accent:#1D4ED8;
+  --accent-soft:#DCE7FC;
+  --accent-ink:#1E3A8A;
+  --gold:#B45309;
+  --gold-soft:#FEF3C7;
+  --blue:#0E7490;
+  --blue-soft:#E0F2FE;
+  --green:#15803D;
+  --green-soft:#DCFCE7;
+  --focus:#1D4ED8;
+  --shadow: 0 1px 2px rgba(16,24,40,0.06), 0 4px 14px rgba(16,24,40,0.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#0B1220;
+    --paper-raised:#111A2C;
+    --ink:#E8ECF3;
+    --ink-soft:#9CA8BC;
+    --ink-faint:#64748B;
+    --line:#22304A;
+    --accent:#5B8DEF;
+    --accent-soft:#1B2A4A;
+    --accent-ink:#A9C2F7;
+    --gold:#D9A441;
+    --gold-soft:#2E2410;
+    --blue:#4CC2E0;
+    --blue-soft:#12313A;
+    --green:#4ADE80;
+    --green-soft:#123420;
+    --focus:#5B8DEF;
+    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 20px rgba(0,0,0,0.35);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0B1220; --paper-raised:#111A2C; --ink:#E8ECF3; --ink-soft:#9CA8BC; --ink-faint:#64748B;
+  --line:#22304A; --accent:#5B8DEF; --accent-soft:#1B2A4A; --accent-ink:#A9C2F7;
+  --gold:#D9A441; --gold-soft:#2E2410; --blue:#4CC2E0; --blue-soft:#12313A;
+  --green:#4ADE80; --green-soft:#123420; --focus:#5B8DEF;
+  --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 20px rgba(0,0,0,0.35);
+}
+:root[data-theme="light"]{
+  --paper:#FFFFFF; --paper-raised:#F3F6FB; --ink:#101828; --ink-soft:#475467; --ink-faint:#98A2B3;
+  --line:#E4E7EC; --accent:#1D4ED8; --accent-soft:#DCE7FC; --accent-ink:#1E3A8A;
+  --gold:#B45309; --gold-soft:#FEF3C7; --blue:#0E7490; --blue-soft:#E0F2FE;
+  --green:#15803D; --green-soft:#DCFCE7; --focus:#1D4ED8;
+  --shadow: 0 1px 2px rgba(16,24,40,0.06), 0 4px 14px rgba(16,24,40,0.08);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"PingFang SC","Noto Sans SC","Microsoft YaHei","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:760px; margin:0 auto; padding:32px 24px 96px;}
+
+/* top nav */
+.topnav{
+  position:sticky; top:0; z-index:10;
+  background:var(--accent);
+  border-bottom:1px solid var(--accent-ink);
+}
+.topnav-inner{
+  max-width:760px; margin:0 auto; padding:14px 24px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+}
+.brand{font-size:14px; font-weight:700; color:#FFFFFF; letter-spacing:0.01em;}
+.tabs{display:flex; gap:20px;}
+.tab-link{
+  font-size:14px; color:rgba(255,255,255,0.75); text-decoration:none;
+  padding:6px 2px; border-bottom:2px solid transparent;
+  transition:color .15s ease, border-color .15s ease;
+}
+.tab-link:hover{color:#FFFFFF;}
+.tab-link.active{color:#FFFFFF; border-bottom-color:#FFFFFF; font-weight:600;}
+.tab-link:focus-visible{outline:2px solid #FFFFFF; outline-offset:2px;}
+
+header.page{
+  display:flex; flex-direction:column; gap:10px;
+  padding-bottom:28px; margin-bottom:8px;
+  border-bottom:1px solid var(--line);
+}
+.eyebrow{
+  font-size:12.5px; letter-spacing:0.08em; color:var(--ink-soft);
+  display:flex; gap:8px; align-items:center;
+}
+.eyebrow .dot{width:4px;height:4px;border-radius:50%;background:var(--ink-faint);}
+h1{
+  font-weight:700;
+  font-size:clamp(26px,4.2vw,32px);
+  line-height:1.25;
+  margin:0;
+  text-wrap:balance;
+}
+.sub{
+  color:var(--ink-soft);
+  font-size:14.5px;
+  max-width:56ch;
+}
+.disclaimer{
+  font-size:12.5px; color:var(--ink-faint); margin-top:2px;
+}
+
+.toolbar{
+  display:flex; flex-wrap:wrap; gap:10px;
+  margin:24px 0 40px;
+}
+button, .btn{
+  font:inherit; cursor:pointer;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:var(--paper-raised);
+  color:var(--ink);
+  padding:10px 16px;
+  font-size:14px;
+  display:inline-flex; align-items:center; gap:8px;
+  transition:border-color .15s ease, background .15s ease, transform .1s ease;
+  text-decoration:none;
+}
+button:hover, .btn:hover{border-color:var(--ink-faint);}
+button:active, .btn:active{transform:translateY(1px);}
+button:disabled{opacity:0.5; cursor:not-allowed;}
+button:focus-visible, .btn:focus-visible, a:focus-visible{
+  outline:2px solid var(--focus); outline-offset:2px;
+}
+.btn-primary{
+  background:var(--accent); border-color:var(--accent); color:#F5F9FF;
+  font-weight:600;
+}
+.btn-primary:hover{background:var(--accent-ink); border-color:var(--accent-ink);}
+
+.month-label{
+  font-size:13px; color:var(--ink-soft); letter-spacing:0.06em;
+  margin:36px 0 12px; padding-bottom:6px;
+  border-bottom:1px solid var(--line);
+  font-variant-numeric:tabular-nums;
+}
+.month-label:first-child{margin-top:0;}
+
+.cal-grid{
+  display:grid;
+  grid-template-columns:repeat(7, 1fr);
+  gap:4px;
+}
+.cal-weekday{
+  font-size:11px; color:var(--ink-faint); text-align:center;
+  padding-bottom:6px; display:flex; flex-direction:column; line-height:1.3;
+}
+.cal-weekday-ko{font-size:9px; color:var(--ink-faint);}
+.cal-day{
+  height:64px;
+  box-sizing:border-box;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:4px 5px;
+  display:flex; flex-direction:column; gap:2px;
+  background:var(--paper);
+  overflow:hidden;
+}
+.cal-day.empty{border-color:transparent; background:transparent;}
+.cal-day .daynum{
+  flex:0 0 auto;
+  font-size:11px; color:var(--ink-soft); font-variant-numeric:tabular-nums;
+  line-height:1.2;
+}
+.cal-day-events{
+  flex:1 1 auto;
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  line-clamp:2;
+  line-height:1.35;
+}
+.cal-chip{
+  display:inline-block; max-width:100%; vertical-align:top;
+  font:inherit; font-size:10px; text-align:left; line-height:1.35;
+  border:none; border-radius:5px; margin:0 2px 2px 0;
+  padding:1px 5px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  cursor:pointer;
+}
+.cal-chip:hover{filter:brightness(0.94);}
+
+.cal-detail{
+  margin-top:28px; padding:20px;
+  border:1px solid var(--line); border-radius:12px;
+  background:var(--paper-raised);
+}
+.cal-detail.empty{
+  color:var(--ink-faint); font-size:13.5px; text-align:center; padding:24px 20px;
+}
+
+.event-main{min-width:0;}
+.row-top{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;}
+.zh{font-size:16.5px; font-weight:600;}
+.ko{font-size:13px; color:var(--ink-soft);}
+.tag{
+  display:inline-block; font-size:11.5px; letter-spacing:0.03em;
+  padding:2px 8px; border-radius:100px; margin-left:2px;
+}
+.tag-选课{background:var(--gold-soft); color:var(--gold);}
+.tag-缴费{background:var(--accent-soft); color:var(--accent-ink);}
+.tag-考试{background:var(--blue-soft); color:var(--blue);}
+.tag-假期{background:var(--green-soft); color:var(--green);}
+.tag-截止{background:var(--accent-soft); color:var(--accent-ink);}
+.tag-学期{background:var(--blue-soft); color:var(--blue);}
+
+.note{font-size:13.5px; color:var(--ink-soft); margin-top:6px; max-width:56ch;}
+.event-actions{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;}
+.event-actions a, .event-actions button{
+  font-size:12.5px; padding:6px 12px; border-radius:100px;
+}
+
+footer{
+  margin-top:56px; padding-top:20px; border-top:1px solid var(--line);
+  font-size:12.5px; color:var(--ink-faint);
+}
+
+/* review board */
+.config-banner{
+  background:var(--gold-soft); color:var(--gold);
+  border:1px solid var(--gold);
+  border-radius:8px; padding:12px 16px;
+  font-size:13.5px; margin:16px 0;
+}
+.config-banner[hidden]{display:none;}
+
+#reviewForm{
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:20px;
+  margin-bottom:28px;
+}
+#reviewForm[hidden]{display:none;}
+.form-row{margin-bottom:14px;}
+.form-row label{
+  display:block; font-size:13px; color:var(--ink-soft); margin-bottom:6px;
+}
+.form-row input, .form-row textarea{
+  width:100%; font:inherit; font-size:14px;
+  padding:10px 12px; border-radius:8px;
+  border:1px solid var(--line); background:var(--paper); color:var(--ink);
+}
+.form-row input:focus, .form-row textarea:focus{
+  outline:2px solid var(--focus); outline-offset:1px; border-color:var(--focus);
+}
+.form-row textarea{min-height:100px; resize:vertical;}
+.field-error{color:var(--accent-ink); font-size:12.5px; margin-top:4px;}
+.form-actions{display:flex; gap:10px; align-items:center;}
+.form-status{font-size:13px; color:var(--ink-soft);}
+
+.review-list{margin-top:8px;}
+.review-card{
+  border-bottom:1px solid var(--line);
+  padding:18px 4px;
+}
+.review-card:last-child{border-bottom:none;}
+.review-top{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;}
+.review-course{font-size:16.5px; font-weight:600;}
+.review-professor{font-size:13px; color:var(--ink-soft);}
+.credit-badge{
+  display:inline-block; font-size:11.5px; letter-spacing:0.03em;
+  padding:2px 8px; border-radius:100px;
+  background:var(--blue-soft); color:var(--blue);
+}
+.review-text{font-size:14px; color:var(--ink); margin-top:8px; white-space:pre-wrap;}
+.review-date{font-size:12px; color:var(--ink-faint); margin-top:8px;}
+.review-state{font-size:14px; color:var(--ink-soft); padding:24px 4px;}
+
+@media (max-width:520px){
+  .cal-day{height:52px; padding:3px; gap:1px;}
+  .cal-day .daynum{font-size:10px;}
+  .cal-chip{font-size:9px; padding:1px 4px;}
+}
+
+</style>
+<style>
+/* ============================================================
+   게시판 v1.1
+   원칙: 요소를 더하지 않고 뺀다.
+   - 글자 크기는 3단계 (15 / 13 / 11.5)
+   - 구분선은 1px 한 종류. 그림자·둥근 카드 없음
+   - 설명 문구 없음. 바로 콘텐츠
+   ============================================================ */
+
+.wrap{max-width:680px; padding:0 16px 64px;}
+
+/* ---- 상단바: 로고 + 탭 + 계정 ---- */
+.topnav-inner{padding:0 16px; gap:0; flex-wrap:nowrap;}
+.brand{
+  font-size:13px; font-weight:700; color:#fff; text-decoration:none;
+  white-space:nowrap; padding:12px 0;
+}
+.tabs{gap:2px; margin-left:18px; flex:1; min-width:0; overflow:hidden;}
+.tab-link{
+  font-size:13px; padding:12px 10px; border-bottom:2px solid transparent;
+  white-space:nowrap;
+}
+.nav-auth{display:flex; align-items:center; gap:8px; white-space:nowrap;}
+.nav-auth .who{font-size:12px; color:rgba(255,255,255,.72); max-width:9em;
+  overflow:hidden; text-overflow:ellipsis;}
+.nav-auth button{
+  background:transparent; border:1px solid rgba(255,255,255,.4); color:#fff;
+  font-size:12px; padding:4px 10px; border-radius:4px;
+}
+.nav-auth button:hover{background:rgba(255,255,255,.14); border-color:#fff;}
+
+/* ---- 목록 머리 ---- */
+.list-head{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:16px 0 10px;
+}
+.list-head h1{font-size:15px; font-weight:700; margin:0; letter-spacing:-.01em;}
+.list-head .ko{font-size:11.5px; color:var(--ink-faint); font-weight:400; margin-left:6px;}
+.list-head .acts{display:flex; gap:6px;}
+.list-head button{font-size:12.5px; padding:6px 12px; border-radius:5px;}
+
+/* ---- 글 목록 ---- */
+.post-row{
+  display:block; width:100%; text-align:left;
+  background:none; border:0; border-top:1px solid var(--line); border-radius:0;
+  padding:12px 2px; cursor:pointer;
+}
+.post-row:hover{background:var(--paper-raised);}
+.post-row:active{transform:none;}
+.post-row .t{
+  display:block; font-size:15px; font-weight:600; line-height:1.4;
+  color:var(--ink); word-break:break-word;
+}
+.post-row .p{
+  display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; line-clamp:1;
+  overflow:hidden; font-size:13px; color:var(--ink-soft); line-height:1.45;
+  margin-top:2px; word-break:break-all;
+}
+.meta{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  margin-top:6px; font-size:11.5px; color:var(--ink-faint);
+  font-variant-numeric:tabular-nums;
+}
+.meta b{font-weight:400; color:var(--ink-soft);}
+.meta .s{display:inline-flex; align-items:center; gap:3px;}
+.meta .s.on{color:var(--accent);}
+.ic{display:block;}
+
+.state{font-size:13px; color:var(--ink-faint); padding:40px 2px; text-align:center; line-height:1.9;}
+.more-wrap{border-top:1px solid var(--line); padding-top:14px; text-align:center;}
+.more-wrap button{font-size:12.5px; padding:7px 18px; border-radius:5px;}
+
+/* ---- 상세 ---- */
+.back{
+  background:none; border:0; border-radius:0; padding:14px 0 10px;
+  font-size:12.5px; color:var(--ink-soft);
+}
+.back:hover{color:var(--ink); background:none; border-color:transparent;}
+.d-title{font-size:17px; font-weight:700; line-height:1.4; margin:0; word-break:break-word;}
+.d-body{
+  font-size:14.5px; line-height:1.8; white-space:pre-wrap; word-break:break-word;
+  padding:14px 0 18px;
+}
+.d-acts{display:flex; gap:6px; flex-wrap:wrap; padding-bottom:16px;}
+.d-acts button{font-size:12.5px; padding:6px 14px; border-radius:5px;}
+.like.on{background:var(--accent-soft); border-color:var(--accent); color:var(--accent-ink);}
+
+/* ---- 댓글 ---- */
+.c-head{
+  font-size:12.5px; color:var(--ink-soft); font-weight:600;
+  padding:12px 0 2px; border-top:1px solid var(--line);
+}
+.c-item{padding:12px 2px; border-top:1px solid var(--line);}
+.c-item:first-of-type{border-top:0;}
+.c-who{font-size:12.5px; font-weight:600;}
+.c-who.op{color:var(--accent);}
+.c-body{font-size:14px; line-height:1.65; margin-top:3px; white-space:pre-wrap; word-break:break-word;}
+.c-foot{display:flex; gap:10px; margin-top:5px; font-size:11.5px; color:var(--ink-faint);}
+.c-foot button{
+  background:none; border:0; border-radius:0; padding:0;
+  font-size:11.5px; color:var(--ink-faint);
+}
+.c-foot button:hover{color:var(--ink-soft); background:none; border-color:transparent;}
+
+.c-form{display:flex; gap:6px; align-items:flex-end; padding-top:14px; border-top:1px solid var(--line);}
+.c-form textarea{
+  flex:1; font:inherit; font-size:14px; padding:9px 11px; border-radius:5px;
+  border:1px solid var(--line); background:var(--paper); color:var(--ink);
+  min-height:40px; max-height:160px; resize:vertical;
+}
+.c-form textarea:focus{outline:2px solid var(--focus); outline-offset:1px;}
+.c-form button{padding:9px 16px; border-radius:5px; font-size:13px;}
+
+/* ---- 작성 폼 ---- */
+.write{border-top:1px solid var(--line); padding:14px 0;}
+.write[hidden]{display:none;}
+.write input, .write textarea{
+  width:100%; font:inherit; padding:9px 11px; border-radius:5px;
+  border:1px solid var(--line); background:var(--paper); color:var(--ink);
+  margin-bottom:8px;
+}
+.write input{font-size:15px; font-weight:600;}
+.write textarea{font-size:14px; min-height:130px; resize:vertical;}
+.write input:focus, .write textarea:focus{outline:2px solid var(--focus); outline-offset:1px;}
+.w-foot{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+.w-foot .count{font-size:11.5px; color:var(--ink-faint); margin-left:auto;}
+.w-foot button{font-size:13px; padding:8px 16px; border-radius:5px;}
+.chk{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:var(--ink-soft);}
+.chk input{width:14px; height:14px; accent-color:var(--accent); margin:0;}
+.err{color:var(--gold); font-size:12px; margin-bottom:8px;}
+.err[hidden]{display:none;}
+.msg{font-size:12.5px; color:var(--ink-soft);}
+
+/* ---- 로그인 ---- */
+.backdrop{
+  position:fixed; inset:0; background:rgba(16,24,40,.5);
+  display:flex; align-items:center; justify-content:center; padding:16px; z-index:50;
+}
+.backdrop[hidden]{display:none;}
+.sheet{
+  background:var(--paper); border:1px solid var(--line); border-radius:8px;
+  padding:22px; width:100%; max-width:340px;
+}
+.sheet h2{font-size:15px; margin:0 0 16px;}
+.sheet label{display:block; font-size:12px; color:var(--ink-soft); margin-bottom:4px;}
+.sheet input{
+  width:100%; font:inherit; font-size:14px; padding:9px 11px; border-radius:5px;
+  border:1px solid var(--line); background:var(--paper); color:var(--ink); margin-bottom:10px;
+}
+.sheet input:focus{outline:2px solid var(--focus); outline-offset:1px;}
+.sheet .row{display:flex; gap:6px; margin-top:4px;}
+.sheet .row button{flex:1; justify-content:center; padding:9px; border-radius:5px; font-size:13px;}
+.switch{margin:14px 0 0; font-size:12px; color:var(--ink-faint); text-align:center;}
+.switch button{
+  background:none; border:0; border-radius:0; padding:0;
+  font-size:12px; color:var(--accent); text-decoration:underline;
+}
+.switch button:hover{background:none; border-color:transparent;}
+
+/* ---- 기타 ---- */
+.ko-sub{font-size:11.5px; color:var(--ink-faint); font-weight:400;}
+footer{
+  margin-top:32px; padding-top:14px; border-top:1px solid var(--line);
+  font-size:11.5px; color:var(--ink-faint); line-height:1.7;
+}
+.config-banner{border-radius:5px; font-size:12.5px; padding:10px 12px;}
+
+@media (max-width:560px){
+  .brand{font-size:12px;}
+  .tabs{margin-left:10px;}
+  .tab-link{padding:12px 7px; font-size:12px;}
+  .nav-auth .who{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="brand" href="index.html">CAU 中国留学生</a>
+    <div class="tabs">
+      <a href="index.html"   class="tab-link">日历</a>
+      <a href="reviews.html" class="tab-link">点评</a>
+      <a href="board.html"   class="tab-link active">广场</a>
+    </div>
+    <div class="nav-auth">
+      <span class="who" id="who"></span>
+      <button id="loginBtn" hidden>登录</button>
+      <button id="logoutBtn" hidden>退出</button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <p class="config-banner" id="configBanner" hidden></p>
+
+  <!-- ================= 목록 ================= -->
+  <section id="listView">
+    <div class="list-head">
+      <h1>广场<span class="ko">자유게시판</span></h1>
+      <div class="acts">
+        <button id="refreshBtn">刷新</button>
+        <button class="btn-primary" id="openWriteBtn">写帖子</button>
+      </div>
+    </div>
+
+    <section class="write" id="writePanel" hidden>
+      <form id="postForm" novalidate>
+        <input type="text" id="postTitle" maxlength="100" autocomplete="off"
+               placeholder="标题 · 제목" required />
+        <textarea id="postBody" maxlength="5000" required
+                  placeholder="请勿填写他人真实姓名、联系方式等个人信息。"></textarea>
+        <div class="err" id="postErr" hidden></div>
+        <div class="w-foot">
+          <label class="chk"><input type="checkbox" id="postAnon" checked /> 匿名</label>
+          <button type="submit" class="btn-primary" id="postSubmit">发布</button>
+          <button type="button" id="postCancel">取消</button>
+          <span class="msg" id="postStatus"></span>
+          <span class="count"><span id="bodyCount">0</span>/5000</span>
+        </div>
+      </form>
+    </section>
+
+    <div id="postList"><div class="state">加载中…</div></div>
+
+    <div class="more-wrap" id="moreWrap" hidden><button id="moreBtn">加载更多</button></div>
+  </section>
+
+  <!-- ================= 상세 ================= -->
+  <section id="detailView" hidden>
+    <button class="back" id="backBtn">← 返回</button>
+    <div id="detailContent"></div>
+  </section>
+
+  <footer>
+    禁止人身攻击、辱骂、歧视、广告及涉及他人隐私的内容。被举报 5 次以上自动隐藏。<br />
+    게시물에 대한 법적 책임은 작성자 본인에게 있습니다. · CAU 中国留学生社区
+  </footer>
+</div>
+
+<!-- ================= 로그인 ================= -->
+<div class="backdrop" id="authModal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <h2 id="authTitle">登录</h2>
+    <form id="authForm" novalidate>
+      <div id="nickRow" hidden>
+        <label for="authNick">昵称 <span class="ko-sub">닉네임 2~12자</span></label>
+        <input type="text" id="authNick" maxlength="12" autocomplete="nickname" />
+      </div>
+      <label for="authEmail">邮箱 <span class="ko-sub">이메일</span></label>
+      <input type="email" id="authEmail" autocomplete="email" required />
+      <label for="authPw">密码 <span class="ko-sub">비밀번호 6자 이상</span></label>
+      <input type="password" id="authPw" autocomplete="current-password" minlength="6" required />
+      <div class="row">
+        <button type="submit" class="btn-primary" id="authSubmit">登录</button>
+        <button type="button" id="authClose">关闭</button>
+      </div>
+      <p class="msg" id="authStatus" style="margin:10px 0 0;"></p>
+    </form>
+    <p class="switch"><span id="switchText">还没有账号？</span>
+      <button type="button" id="switchBtn">注册</button></p>
+  </div>
+</div>
+
+<script>
+
+/* ================= 预览模式 MOCK (실제 서비스에는 포함되지 않음) ================= */
+(function () {
+  var now = Date.now();
+  var ago = function (m) { return new Date(now - m * 60000).toISOString(); };
+  var ME = "me-uuid";
+
+  var store = {
+    posts: [
+      { id: 7, author_id: "u1", title: "수강신청 서버 언제 열려요? 选课系统几点开", body: "听说是早上10点，但去年好像提前了？有没有学长学姐知道准确时间的。第一次选课有点紧张，怕抢不到必修。", is_anonymous: true,  like_count: 12, comment_count: 3, created_at: ago(8) },
+      { id: 6, author_id: "u2", title: "黑石洞附近租房 大概多少钱", body: "预算 50/50 左右，想找步行到学校 15 分钟以内的。有没有推荐的房东或者中介？韩语不太好，希望能沟通顺畅一点。", is_anonymous: true,  like_count: 8,  comment_count: 5, created_at: ago(52) },
+      { id: 5, author_id: ME,   title: "打工签证 (D-2-6) 申请经验分享", body: "上周刚办下来，把流程整理一下：\n1. 学校国际处开在学证明\n2. HiKorea 预约\n3. 需要教授签字的确认书\n\n最花时间的是第 3 步，建议提前两周找教授。", is_anonymous: false, like_count: 41, comment_count: 9, created_at: ago(60 * 20) },
+      { id: 4, author_id: "u3", title: "有没有一起学韩语的 TOPIK 6급 목표", body: "每周两次线下自习，图书馆或者附近咖啡厅都可以。现在 4급，想在明年上半年冲 6급。", is_anonymous: true,  like_count: 5,  comment_count: 2, created_at: ago(60 * 26) },
+      { id: 3, author_id: "u4", title: "食堂哪个好吃 학식 추천", body: "个人推荐 108관 地下一层，性价比最高。你们都在哪吃？", is_anonymous: true,  like_count: 23, comment_count: 7, created_at: ago(60 * 50) },
+      { id: 2, author_id: "u5", title: "교환학생 신청 관련 질문 있어요", body: "중국 대학으로 교환 가려는데 학점 기준이 어떻게 되나요? 국제처 공지가 잘 안 보여서요.", is_anonymous: true, like_count: 3, comment_count: 1, created_at: ago(60 * 70) },
+      { id: 1, author_id: "u6", title: "医疗保险 국민건강보험 怎么交", body: "刚收到缴费单，一个月 6 万多，这个是必须交的吗？有没有办法减免。", is_anonymous: true, like_count: 17, comment_count: 4, created_at: ago(60 * 90) }
+    ],
+    comments: [
+      { id: 1, post_id: 7, author_id: "u9", body: "去年是 10 点整开的，但系统会提前 5 分钟排队，建议 9:50 就登录。", is_anonymous: true, anon_no: 1, created_at: ago(6) },
+      { id: 2, post_id: 7, author_id: "u1", body: "谢谢！那我提前登录试试", is_anonymous: true, anon_no: 0, created_at: ago(5) },
+      { id: 3, post_id: 7, author_id: ME,   body: "포털 공지 확인해보세요. 매 학기 조금씩 달라요.", is_anonymous: true, anon_no: 2, created_at: ago(3) },
+      { id: 4, post_id: 6, author_id: "u7", body: "흑석동은 요즘 보증금이 많이 올랐어요. 상도동도 같이 보시는 걸 추천.", is_anonymous: true, anon_no: 1, created_at: ago(40) },
+      { id: 5, post_id: 5, author_id: "u8", body: "太有用了，正好下周要去办。教授签字确认书是哪个表格？", is_anonymous: true, anon_no: 1, created_at: ago(60 * 18) },
+      { id: 6, post_id: 5, author_id: ME,   body: "国际处网站 '학사서류' 分类里，D-2-6 확인서 就是。", is_anonymous: false, anon_no: 0, created_at: ago(60 * 17) }
+    ],
+    likes: [{ post_id: 3, user_id: ME }],
+    seqPost: 8, seqComment: 7
+  };
+
+  var session = null;
+  var authCbs = [];
+  var nick = { u1: "선배A", u2: "小李", u3: "학생B", u4: "미식가", u5: "kwagyun", u6: "留学生C", u7: "부동산왕", u8: "신입생", u9: "3학년", "me-uuid": "我" };
+
+  function uid() { return session ? session.user.id : null; }
+
+  function viewPosts() {
+    return store.posts.filter(function (p) { return !p.is_deleted; }).map(function (p) {
+      return { id: p.id, title: p.title, body: p.body, is_anonymous: p.is_anonymous,
+        nickname: p.is_anonymous ? null : (nick[p.author_id] || "用户"),
+        like_count: p.like_count, comment_count: p.comment_count,
+        created_at: p.created_at, is_mine: p.author_id === uid() };
+    });
+  }
+  function viewComments() {
+    return store.comments.filter(function (c) { return !c.is_deleted; }).map(function (c) {
+      return { id: c.id, post_id: c.post_id, body: c.body, is_anonymous: c.is_anonymous,
+        nickname: c.is_anonymous ? null : (nick[c.author_id] || "用户"),
+        anon_no: c.anon_no, is_op: c.anon_no === 0, created_at: c.created_at,
+        is_mine: c.author_id === uid() };
+    });
+  }
+
+  function Query(table) { this.t = table; this.f = []; this.o = null; this.r = null; this.op = null; this.payload = null; }
+  Query.prototype.select = function () { return this; };
+  Query.prototype.eq = function (k, v) { this.f.push([k, "eq", v]); return this; };
+  Query.prototype.in = function (k, v) { this.f.push([k, "in", v]); return this; };
+  Query.prototype.order = function (k, o) { this.o = [k, !o || o.ascending !== false]; return this; };
+  Query.prototype.range = function (a, b) { this.r = [a, b]; return this; };
+  Query.prototype.insert = function (row) { this.op = "insert"; this.payload = row; return this; };
+  Query.prototype.update = function (row) { this.op = "update"; this.payload = row; return this; };
+  Query.prototype.delete = function () { this.op = "delete"; return this; };
+  Query.prototype.maybeSingle = function () { var self = this; return this._run().then(function (r) {
+    return { data: r.data && r.data.length ? r.data[0] : null, error: r.error }; }); };
+  Query.prototype.then = function (a, b) { return this._run().then(a, b); };
+
+  Query.prototype._match = function (row) {
+    return this.f.every(function (f) {
+      if (f[1] === "eq") return row[f[0]] === f[2];
+      return f[2].indexOf(row[f[0]]) !== -1;
+    });
+  };
+
+  Query.prototype._run = function () {
+    var self = this;
+    return new Promise(function (res) { setTimeout(function () { res(self._exec()); }, 120); });
+  };
+
+  Query.prototype._exec = function () {
+    var t = this.t, p = this.payload;
+    if (this.op === "insert") {
+      if (t === "posts") {
+        store.posts.unshift({ id: store.seqPost++, author_id: uid(), title: p.title, body: p.body,
+          is_anonymous: p.is_anonymous, like_count: 0, comment_count: 0, created_at: new Date().toISOString() });
+      } else if (t === "comments") {
+        var post = store.posts.filter(function (x) { return x.id === p.post_id; })[0];
+        var an = 0;
+        if (post.author_id !== uid()) {
+          var mine = store.comments.filter(function (c) { return c.post_id === p.post_id && c.author_id === uid() && c.anon_no > 0; })[0];
+          an = mine ? mine.anon_no : Math.max.apply(null, [0].concat(store.comments.filter(function (c) { return c.post_id === p.post_id; }).map(function (c) { return c.anon_no; }))) + 1;
+        }
+        store.comments.push({ id: store.seqComment++, post_id: p.post_id, author_id: uid(), body: p.body,
+          is_anonymous: p.is_anonymous, anon_no: an, created_at: new Date().toISOString() });
+        post.comment_count++;
+      } else if (t === "post_likes") {
+        store.likes.push({ post_id: p.post_id, user_id: uid() });
+        store.posts.filter(function (x) { return x.id === p.post_id; })[0].like_count++;
+      }
+      return { data: null, error: null };
+    }
+    if (this.op === "delete") {
+      var self = this;
+      store.likes = store.likes.filter(function (l) { return !self._match(l); });
+      var pid = this.f.filter(function (f) { return f[0] === "post_id"; })[0];
+      if (pid) { var po = store.posts.filter(function (x) { return x.id === pid[2]; })[0];
+        if (po) po.like_count = Math.max(po.like_count - 1, 0); }
+      return { data: null, error: null };
+    }
+    if (this.op === "update") {
+      var arr = t === "posts" ? store.posts : store.comments, self2 = this;
+      arr.forEach(function (row) { if (self2._match(row)) Object.assign(row, p); });
+      if (t === "comments") {
+        store.posts.forEach(function (po) {
+          po.comment_count = store.comments.filter(function (c) { return c.post_id === po.id && !c.is_deleted; }).length;
+        });
+      }
+      return { data: null, error: null };
+    }
+
+    var rows = t === "posts_public" ? viewPosts()
+             : t === "comments_public" ? viewComments()
+             : t === "post_likes" ? (uid() ? store.likes.filter(function (l) { return l.user_id === uid(); }) : [])
+             : [];
+    rows = rows.filter(this._match, this);
+    if (this.o) { var k = this.o[0], asc = this.o[1];
+      rows = rows.slice().sort(function (a, b) { return (a[k] > b[k] ? 1 : a[k] < b[k] ? -1 : 0) * (asc ? 1 : -1); }); }
+    if (this.r) rows = rows.slice(this.r[0], this.r[1] + 1);
+    return { data: rows, error: null };
+  };
+
+  function emit(ev) { authCbs.forEach(function (cb) { cb(ev, session); }); }
+
+  window.supabase = {
+    createClient: function () {
+      return {
+        from: function (t) { return new Query(t); },
+        auth: {
+          getSession: function () { return Promise.resolve({ data: { session: session } }); },
+          onAuthStateChange: function (cb) { authCbs.push(cb); return { data: { subscription: {} } }; },
+          signUp: function (o) {
+            session = { user: { id: ME, email: o.email, user_metadata: { nickname: (o.options && o.options.data.nickname) || "我" } } };
+            nick[ME] = session.user.user_metadata.nickname;
+            emit("SIGNED_IN"); return Promise.resolve({ data: { session: session }, error: null });
+          },
+          signInWithPassword: function (o) {
+            session = { user: { id: ME, email: o.email, user_metadata: { nickname: "我" } } };
+            emit("SIGNED_IN"); return Promise.resolve({ data: { session: session }, error: null });
+          },
+          signOut: function () { session = null; emit("SIGNED_OUT"); return Promise.resolve({ error: null }); }
+        }
+      };
+    }
+  };
+})();
+
+
+</script>
+<script>
+(function () {
+  "use strict";
+
+  // service_role 키는 절대 여기에 넣지 않는다.
+  const SUPABASE_URL      = "https://ltmvvsmraejnuboyjarx.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_IQou3ShN90xCLGfXQ8_vZQ_mXRC6be9";
+  const PAGE_SIZE = 20;
+
+  const $ = (id) => document.getElementById(id);
+  const banner = $("configBanner");
+
+  let sb = null;
+  try {
+    if (!window.supabase || typeof window.supabase.createClient !== "function") throw 0;
+    sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  } catch (e) {
+    banner.hidden = false;
+    banner.textContent = "无法加载数据库组件，请检查网络后刷新。 / 라이브러리를 불러오지 못했습니다.";
+    return;
+  }
+
+  let session = null, myLikes = new Set, offset = 0, loading = false, currentPost = null;
+
+  // ---------- 아이콘 ----------
+  const ICON_HEART = (fill) =>
+    '<svg class="ic" width="12" height="12" viewBox="0 0 16 16" aria-hidden="true">' +
+    '<path d="M8 13.6C8 13.6 2 10.2 2 6.3 2 4.5 3.4 3.2 5.1 3.2 6.3 3.2 7.4 3.9 8 4.9 8.6 3.9 9.7 3.2 10.9 3.2 12.6 3.2 14 4.5 14 6.3 14 10.2 8 13.6 8 13.6Z" ' +
+    'fill="' + (fill ? "currentColor" : "none") + '" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+  const ICON_CHAT =
+    '<svg class="ic" width="12" height="12" viewBox="0 0 16 16" aria-hidden="true">' +
+    '<path d="M2.6 3.4h10.8v7.2h-6L4.2 13v-2.4H2.6z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+
+  // ---------- 유틸 ----------
+  const esc = (s) => String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+
+  function timeAgo(iso) {
+    const d = (Date.now() - new Date(iso).getTime()) / 1000;
+    if (d < 60) return "刚刚";
+    if (d < 3600) return Math.floor(d / 60) + "分钟前";
+    if (d < 86400) return Math.floor(d / 3600) + "小时前";
+    if (d < 604800) return Math.floor(d / 86400) + "天前";
+    const t = new Date(iso);
+    return (t.getMonth() + 1) + "/" + t.getDate();
+  }
+  const who = (r) => r.is_anonymous ? (r.is_mine ? "匿名（我）" : "匿名") : (r.nickname || "匿名");
+  const say = (el, m, bad) => { el.textContent = m || ""; el.style.color = bad ? "var(--gold)" : "var(--ink-soft)"; };
+
+  // ---------- 인증 ----------
+  const authModal = $("authModal");
+  let mode = "login";
+
+  function renderAuth() {
+    if (session) {
+      const n = session.user.user_metadata && session.user.user_metadata.nickname;
+      $("who").textContent = n || session.user.email;
+      $("loginBtn").hidden = true; $("logoutBtn").hidden = false;
+    } else {
+      $("who").textContent = "";
+      $("loginBtn").hidden = false; $("logoutBtn").hidden = true;
+    }
+  }
+
+  function openAuth(m) {
+    mode = m || "login";
+    const up = mode === "signup";
+    $("authTitle").textContent = up ? "注册 · 회원가입" : "登录 · 로그인";
+    $("authSubmit").textContent = up ? "注册" : "登录";
+    $("nickRow").hidden = !up;
+    $("switchText").textContent = up ? "已有账号？" : "还没有账号？";
+    $("switchBtn").textContent = up ? "登录" : "注册";
+    say($("authStatus"), "");
+    authModal.hidden = false;
+    (up ? $("authNick") : $("authEmail")).focus();
+  }
+  const closeAuth = () => { authModal.hidden = true; $("authForm").reset(); };
+
+  $("loginBtn").addEventListener("click", () => openAuth("login"));
+  $("authClose").addEventListener("click", closeAuth);
+  $("switchBtn").addEventListener("click", () => openAuth(mode === "signup" ? "login" : "signup"));
+  authModal.addEventListener("click", (e) => { if (e.target === authModal) closeAuth(); });
+  $("logoutBtn").addEventListener("click", () => sb.auth.signOut());
+
+  $("authForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const st = $("authStatus");
+    const email = $("authEmail").value.trim(), pw = $("authPw").value, nick = $("authNick").value.trim();
+    if (!email || !pw) return say(st, "请填写邮箱和密码。", true);
+    if (mode === "signup") {
+      if (nick.length < 2 || nick.length > 12) return say(st, "昵称 2~12 个字符。 / 닉네임은 2~12자.", true);
+      if (pw.length < 6) return say(st, "密码至少 6 位。", true);
+    }
+    $("authSubmit").disabled = true; say(st, "处理中…");
+    try {
+      if (mode === "signup") {
+        const { data, error } = await sb.auth.signUp({ email, password: pw, options: { data: { nickname: nick } } });
+        if (error) throw error;
+        if (!data.session) { say(st, "已发送验证邮件，请查收。 / 인증 메일을 확인해주세요."); $("authSubmit").disabled = false; return; }
+      } else {
+        const { error } = await sb.auth.signInWithPassword({ email, password: pw });
+        if (error) throw error;
+      }
+      closeAuth();
+    } catch (err) {
+      const m = String(err && err.message || err);
+      say(st, /Invalid login/i.test(m) ? "邮箱或密码不正确。 / 이메일 또는 비밀번호가 올바르지 않습니다."
+        : /already registered/i.test(m) ? "该邮箱已注册，请直接登录。"
+        : /rate limit/i.test(m) ? "请求过于频繁，请稍后再试。" : m, true);
+    } finally { $("authSubmit").disabled = false; }
+  });
+
+  const needLogin = () => session ? true : (openAuth("login"), false);
+
+  // ---------- 목록 ----------
+  const postList = $("postList");
+
+  async function fetchMyLikes(ids) {
+    if (!session || !ids.length) return;
+    const { data } = await sb.from("post_likes").select("post_id").in("post_id", ids);
+    (data || []).forEach((r) => myLikes.add(r.post_id));
+  }
+
+  const rowHTML = (p) => {
+    const liked = myLikes.has(p.id);
+    return '<button class="post-row" data-id="' + p.id + '">' +
+      '<span class="t">' + esc(p.title) + "</span>" +
+      '<span class="p">' + esc(p.body) + "</span>" +
+      '<span class="meta"><b>' + esc(who(p)) + "</b><span>" + timeAgo(p.created_at) + "</span>" +
+        '<span class="s' + (liked ? " on" : "") + '">' + ICON_HEART(liked) + p.like_count + "</span>" +
+        '<span class="s">' + ICON_CHAT + p.comment_count + "</span>" +
+      "</span></button>";
+  };
+
+  async function loadPosts(reset) {
+    if (loading) return;
+    loading = true;
+    if (reset) { offset = 0; myLikes = new Set; postList.innerHTML = '<div class="state">加载中…</div>'; }
+
+    const { data, error } = await sb.from("posts_public")
+      .select("id,title,body,is_anonymous,nickname,like_count,comment_count,created_at,is_mine")
+      .order("created_at", { ascending: false })
+      .range(offset, offset + PAGE_SIZE - 1);
+    loading = false;
+
+    if (error) {
+      postList.innerHTML = '<div class="state">加载失败：' + esc(error.message) +
+        '<br /><span class="ko-sub">schema_board.sql 을 먼저 실행해주세요.</span></div>';
+      return;
+    }
+    await fetchMyLikes(data.map((p) => p.id));
+    if (reset) postList.innerHTML = "";
+    if (!data.length && offset === 0) {
+      postList.innerHTML = '<div class="state">还没有帖子，来发第一条吧<br /><span class="ko-sub">아직 글이 없습니다</span></div>';
+    } else {
+      postList.insertAdjacentHTML("beforeend", data.map(rowHTML).join(""));
+    }
+    offset += data.length;
+    $("moreWrap").hidden = data.length < PAGE_SIZE;
+  }
+
+  postList.addEventListener("click", (e) => {
+    const r = e.target.closest(".post-row");
+    if (r) location.hash = "#post-" + r.dataset.id;
+  });
+  $("moreBtn").addEventListener("click", () => loadPosts(false));
+  $("refreshBtn").addEventListener("click", () => loadPosts(true));
+
+  // ---------- 글쓰기 ----------
+  const writePanel = $("writePanel");
+  $("openWriteBtn").addEventListener("click", () => {
+    if (!needLogin()) return;
+    writePanel.hidden = !writePanel.hidden;
+    if (!writePanel.hidden) $("postTitle").focus();
+  });
+  $("postCancel").addEventListener("click", () => {
+    $("postForm").reset(); $("bodyCount").textContent = "0";
+    $("postErr").hidden = true; say($("postStatus"), ""); writePanel.hidden = true;
+  });
+  $("postBody").addEventListener("input", (e) => { $("bodyCount").textContent = e.target.value.length; });
+
+  $("postForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!needLogin()) return;
+    const title = $("postTitle").value.trim(), body = $("postBody").value.trim();
+    const err = $("postErr"), st = $("postStatus");
+    err.hidden = true;
+    if (!title || !body) {
+      err.hidden = false;
+      err.textContent = !title ? "请填写标题。 / 제목을 입력해주세요." : "请填写内容。 / 내용을 입력해주세요.";
+      return;
+    }
+    $("postSubmit").disabled = true; say(st, "发布中…");
+    const { error } = await sb.from("posts").insert({
+      author_id: session.user.id, title, body, is_anonymous: $("postAnon").checked
+    });
+    $("postSubmit").disabled = false;
+    if (error) return say(st, "发布失败：" + error.message, true);
+    $("postForm").reset(); $("bodyCount").textContent = "0"; say(st, "");
+    writePanel.hidden = true; loadPosts(true);
+  });
+
+  // ---------- 상세 ----------
+  const detail = $("detailContent");
+
+  const likeHTML = (liked, n) =>
+    ICON_HEART(liked) + '<span style="margin-left:5px">共鸣 <span id="likeNum">' + n + "</span></span>";
+
+  async function openPost(id) {
+    $("listView").hidden = true; $("detailView").hidden = false;
+    detail.innerHTML = '<div class="state">加载中…</div>';
+
+    const { data: p, error } = await sb.from("posts_public")
+      .select("id,title,body,is_anonymous,nickname,like_count,comment_count,created_at,is_mine")
+      .eq("id", id).maybeSingle();
+
+    if (error || !p) {
+      detail.innerHTML = '<div class="state">帖子不存在或已被删除。<br /><span class="ko-sub">삭제되었거나 없는 글입니다</span></div>';
+      return;
+    }
+    currentPost = p;
+
+    if (session) {
+      const { data: lk } = await sb.from("post_likes").select("post_id").eq("post_id", p.id);
+      if (lk && lk.length) myLikes.add(p.id);
+    }
+    const liked = myLikes.has(p.id);
+
+    detail.innerHTML =
+      '<h1 class="d-title">' + esc(p.title) + "</h1>" +
+      '<div class="meta"><b>' + esc(who(p)) + "</b><span>" + timeAgo(p.created_at) + "</span></div>" +
+      '<div class="d-body">' + esc(p.body) + "</div>" +
+      '<div class="d-acts">' +
+        '<button class="like' + (liked ? " on" : "") + '" id="likeBtn">' + likeHTML(liked, p.like_count) + "</button>" +
+        '<button id="reportBtn">举报</button>' +
+        (p.is_mine ? '<button id="delBtn">删除</button>' : "") +
+      "</div>" +
+      '<div class="c-head">评论 <span id="cmtNum">' + p.comment_count + "</span></div>" +
+      '<div id="commentList"><div class="state">加载中…</div></div>' +
+      '<form class="c-form" id="commentForm">' +
+        '<textarea id="commentBody" maxlength="1000" placeholder="写评论… · 댓글"></textarea>' +
+        '<button type="submit" class="btn-primary" id="commentSubmit">发送</button>' +
+      "</form>" +
+      '<div style="display:flex;align-items:center;gap:10px;margin-top:8px">' +
+        '<label class="chk"><input type="checkbox" id="commentAnon" checked /> 匿名</label>' +
+        '<span class="msg" id="commentStatus"></span></div>';
+
+    $("likeBtn").addEventListener("click", toggleLike);
+    $("reportBtn").addEventListener("click", () => report("post", p.id));
+    if ($("delBtn")) $("delBtn").addEventListener("click", delPost);
+    $("commentForm").addEventListener("submit", addComment);
+    loadComments(p.id);
+  }
+
+  async function toggleLike() {
+    if (!needLogin()) return;
+    const id = currentPost.id, btn = $("likeBtn");
+    const n = +$("likeNum").textContent;
+    btn.disabled = true;
+    if (myLikes.has(id)) {
+      const { error } = await sb.from("post_likes").delete().eq("post_id", id).eq("user_id", session.user.id);
+      if (!error) { myLikes.delete(id); btn.classList.remove("on"); btn.innerHTML = likeHTML(false, Math.max(n - 1, 0)); }
+    } else {
+      const { error } = await sb.from("post_likes").insert({ post_id: id, user_id: session.user.id });
+      if (!error) { myLikes.add(id); btn.classList.add("on"); btn.innerHTML = likeHTML(true, n + 1); }
+    }
+    btn.disabled = false;
+  }
+
+  async function delPost() {
+    if (!confirm("确定要删除这条帖子吗？ / 삭제할까요?")) return;
+    const { error } = await sb.from("posts").update({ is_deleted: true }).eq("id", currentPost.id);
+    if (error) return alert("删除失败：" + error.message);
+    location.hash = ""; loadPosts(true);
+  }
+
+  async function report(type, id) {
+    if (!needLogin()) return;
+    const reason = prompt("举报理由（选填） / 신고 사유 (선택)");
+    if (reason === null) return;
+    const { error } = await sb.from("reports").insert({
+      target_type: type, target_id: id, reporter_id: session.user.id, reason: reason || null
+    });
+    if (error) return alert(/duplicate|unique/i.test(error.message) ? "您已举报过该内容。" : "举报失败：" + error.message);
+    alert("已收到举报。 / 신고가 접수되었습니다.");
+  }
+
+  // ---------- 댓글 ----------
+  async function loadComments(postId) {
+    const box = $("commentList");
+    if (!box) return;
+    const { data, error } = await sb.from("comments_public")
+      .select("id,post_id,body,is_anonymous,nickname,anon_no,is_op,created_at,is_mine")
+      .eq("post_id", postId).order("created_at", { ascending: true });
+
+    if (error) { box.innerHTML = '<div class="state">加载失败：' + esc(error.message) + "</div>"; return; }
+    if (!data.length) { box.innerHTML = '<div class="state">还没有评论 <span class="ko-sub">· 첫 댓글을 남겨보세요</span></div>'; return; }
+
+    box.innerHTML = data.map((c) => {
+      const name = (!c.is_anonymous && c.nickname) ? esc(c.nickname) : (c.is_op ? "楼主" : "匿名" + c.anon_no);
+      return '<div class="c-item">' +
+        '<span class="c-who' + (c.is_op ? " op" : "") + '">' + name + "</span>" +
+        '<span style="font-size:11.5px;color:var(--ink-faint);margin-left:7px">' + timeAgo(c.created_at) + "</span>" +
+        '<div class="c-body">' + esc(c.body) + "</div>" +
+        '<div class="c-foot"><button data-rep="' + c.id + '">举报</button>' +
+          (c.is_mine ? '<button data-del="' + c.id + '">删除</button>' : "") + "</div></div>";
+    }).join("");
+
+    box.querySelectorAll("[data-rep]").forEach((b) =>
+      b.addEventListener("click", () => report("comment", +b.dataset.rep)));
+    box.querySelectorAll("[data-del]").forEach((b) =>
+      b.addEventListener("click", async () => {
+        if (!confirm("删除这条评论？ / 댓글을 삭제할까요?")) return;
+        const { error } = await sb.from("comments").update({ is_deleted: true }).eq("id", +b.dataset.del);
+        if (error) return alert("删除失败：" + error.message);
+        loadComments(postId);
+      }));
+  }
+
+  async function addComment(e) {
+    e.preventDefault();
+    if (!needLogin()) return;
+    const body = $("commentBody").value.trim(), st = $("commentStatus");
+    if (!body) return say(st, "请填写评论内容。", true);
+    $("commentSubmit").disabled = true; say(st, "发送中…");
+    const { error } = await sb.from("comments").insert({
+      post_id: currentPost.id, author_id: session.user.id, body, is_anonymous: $("commentAnon").checked
+    });
+    $("commentSubmit").disabled = false;
+    if (error) return say(st, "发送失败：" + error.message, true);
+    $("commentBody").value = ""; say(st, "");
+    const n = $("cmtNum"); if (n) n.textContent = +n.textContent + 1;
+    loadComments(currentPost.id);
+  }
+
+  // ---------- 라우팅 ----------
+  function route() {
+    const m = location.hash.match(/^#post-(\d+)$/);
+    if (m) openPost(+m[1]);
+    else { $("detailView").hidden = true; $("listView").hidden = false; currentPost = null; }
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", route);
+  $("backBtn").addEventListener("click", () => { location.hash = ""; });
+
+  // ---------- 시작 ----------
+  sb.auth.getSession().then(({ data }) => {
+    session = data.session; renderAuth();
+    loadPosts(true).then(route);
+  });
+  sb.auth.onAuthStateChange((_e, s) => {
+    session = s; myLikes = new Set; renderAuth();
+    if (currentPost) openPost(currentPost.id); else loadPosts(true);
+  });
+})();
+</script>
+<script>
+(function(){var b=document.getElementById("configBanner");b.hidden=false;
+b.innerHTML="<b>预览模式 · 프리뷰</b> — 서버 없이 UI만 확인하는 파일입니다. 아무 이메일/비밀번호로 로그인되고, 작성한 글은 새로고침하면 사라집니다.";})();
+</script>
+</body>
+</html>
