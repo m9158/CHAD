@@ -45,8 +45,9 @@
   스팸 한 번이면 초기 인상이 무너지므로 게시판 배포와 동시에 강의평에도 로그인을 걸어야 한다.
 - 페이지 3개가 헤더/네비게이션 코드를 각각 복사해서 갖고 있다. 탭을 하나 추가할 때마다
   모든 파일을 수정해야 한다.
-- 파일명에 버전이 들어가 있다 (`index_ver.1.1.html`). git을 쓰는 이상 불필요하고,
-  버전을 올릴 때마다 모든 페이지의 링크가 깨진다. [7. 개발 규칙](#7-개발-규칙) 참고.
+- ~~파일명에 버전이 들어가 있다~~ → **2026-08 해결됨.** 다만 기존 `..._ver.1.1.html`
+  주소로 공유된 링크가 전부 죽었다. `vercel.json` 에 리다이렉트를 넣어 살려야 한다.
+- 저장소(`main`)와 실제 배포본이 다르다. 위 [파일 구조](#3-파일-구조) 주의 참고.
 
 ---
 
@@ -65,23 +66,53 @@
 
 ## 3. 파일 구조
 
+### 현재 저장소
+
 ```
 /
-├── index.html                  # 학사일정 캘린더
-├── reviews.html                # 강의평
-├── board.html                  # 자유게시판  (신규)
-├── styles.css                  # 공통 디자인 토큰 + 컴포넌트
+├── .gitattributes                    # 줄바꿈 LF 통일
+├── board.html                        # 자유게시판 (신규, 미배포)
+├── caucalendarcn.html                # 강의평 페이지 사본 (중복, 정리 필요)
+├── academic-calendar_초안/            # 학사일정 초안 (정리 필요)
 ├── db/
-│   └── schema_board.sql        # 게시판 테이블 · RLS · 트리거 · 뷰
+│   └── schema_board.sql              # 게시판 테이블 · RLS · 트리거 · 뷰
 ├── docs/
-│   └── board_preview.html      # DB 없이 UI만 확인하는 프리뷰 (배포 안 함)
+│   ├── board_preview.html            # DB 없이 UI만 확인 (배포 안 함)
+│   ├── DEPLOY.md                     # 배포 절차
+│   ├── GITHUB_GUIDE.md               # GitHub 사용법 (처음 쓰는 사람용)
+│   └── SETUP_board.md                # 게시판 설정 가이드
 └── README.md
 ```
 
-> 현재 저장소에는 `index_ver.1.1.html` 처럼 버전이 붙은 이름으로 들어있다.
-> 첫 커밋에서 위 구조로 정리하는 것을 권장한다.
+### 실제 배포되어 있는 파일 (2026-08 재배포 완료)
 
----
+파일명에서 버전 표기를 제거했다.
+
+```
+index.html      학사일정   (구 index_ver.1.1.html)
+reviews.html    강의평     (구 reviews_ver.1.1.html)
+styles.css      공통 스타일
+vercel.json     Vercel 설정
+```
+
+> **주의 — 저장소와 배포본이 일치하지 않는다.**
+> 위 배포 파일 4개가 이 저장소의 `main` 에 없다. 저장소만 받아서는 사이트를 재현할 수 없고,
+> 여기에 올려도 배포되지 않는다. Vercel이 어느 저장소를 보고 있는지 확인해 하나로 합쳐야 한다.
+> 이게 정리되기 전까지는 게시판을 배포할 수 없다.
+
+### 목표 구조
+
+```
+/
+├── index.html
+├── reviews.html
+├── board.html
+├── styles.css
+├── vercel.json
+├── db/
+├── docs/
+└── README.md
+```
 
 ## 4. 로컬에서 실행하기
 
@@ -99,6 +130,9 @@ python3 -m http.server 5500
 ```
 
 VS Code를 쓴다면 **Live Server** 확장으로도 된다.
+
+GitHub를 처음 쓴다면 [`docs/GITHUB_GUIDE.md`](docs/GITHUB_GUIDE.md) 를 먼저 읽는다.
+클론부터 PR까지 클릭 순서로 적혀 있다.
 
 로컬 주소로 로그인까지 테스트하려면 Supabase 대시보드
 **Authentication → URL Configuration → Redirect URLs** 에 `http://localhost:5500/**` 를 추가한다.
@@ -164,7 +198,19 @@ auth.users ──1:1── profiles (nickname)
 
 ```
 ❌ index_ver.1.1.html   →   ✅ index.html
-❌ board_ver.1.0.html   →   ✅ board.html
+❌ board_ver.1.1.html   →   ✅ board.html
+```
+
+2026-08에 배포본은 정리했다. 다만 **옛 주소로 공유된 링크가 전부 죽었으므로**
+`vercel.json` 에 리다이렉트를 넣어야 한다.
+
+```json
+{
+  "redirects": [
+    { "source": "/index_ver.1.1.html",   "destination": "/index.html",   "permanent": true },
+    { "source": "/reviews_ver.1.1.html", "destination": "/reviews.html", "permanent": true }
+  ]
+}
 ```
 
 버전 관리는 git이 한다. 릴리스는 태그로 남긴다.
@@ -197,6 +243,8 @@ docs: README에 DB 설정 절차 추가
 
 ### 코드 컨벤션
 
+- 줄바꿈은 **LF**로 통일한다. `.gitattributes` 가 자동으로 처리하므로 신경 쓰지 않아도 된다.
+  (이게 없으면 Windows에서 파일을 열기만 해도 전체가 "수정됨"으로 잡혀 diff를 볼 수 없게 된다)
 - 사용자에게 보이는 문구는 **중국어 우선, 한국어 병기**. 한국어는 `.ko-sub` 클래스로 작게
 - 색·간격은 `styles.css` 의 CSS 변수만 사용한다 (`var(--accent)`). 하드코딩된 hex 금지
 - DB에서 온 값은 반드시 `esc()` 를 거쳐 DOM에 넣는다 (XSS 방지)
